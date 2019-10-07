@@ -11,8 +11,8 @@ import time
 def argumentParser(argument):
   """ Argument parser """
   parser = argparse.ArgumentParser(description='Drive robot joint to command position')
-  parser.add_argument('kinova_robotType', metavar='kinova_robotType', type=str, default='j2n6a300',
-                    help='kinova_RobotType is in format of: [{j|m|r|c}{1|2}{s|n}{4|6|7}{s|a}{2|3}{0}{0}]. eg: j2n6a300 refers to jaco v2 6DOF assistive 3fingers. Please be noted that not all options are valided for different robot types.')
+  parser.add_argument('kinova_robotType', metavar='kinova_robotType', type=str, default='j2s7a300',
+                    help='kinova_RobotType is in format of: [{j|m|r|c}{1|2}{s|n}{4|6|7}{s|a}{2|3}{0}{0}]. eg: j2s7a300 refers to jaco v2 7DOF assistive 3fingers. Please be noted that not all options are valided for different robot types.')
   #args_ = parser.parse_args(argument)
   argv = rospy.myargv()
   args_ = parser.parse_args(argv[1:])
