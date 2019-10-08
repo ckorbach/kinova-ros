@@ -36,12 +36,12 @@ PickPlace::PickPlace(ros::NodeHandle &nh):
 
     ros::NodeHandle pn("~");
 
-    nh_.param<std::string>("/robot_type",robot_type_,"j2n6s300");
+    nh_.param<std::string>("/robot_type",robot_type_,"j2s7s300");
     nh_.param<bool>("/robot_connected",robot_connected_,true);
 
     if (robot_connected_)
     {
-        //sub_joint_ = nh_.subscribe<sensor_msgs::JointState>("/j2s7s300_driver/out/joint_state", 1, &PickPlace::get_current_state, this);
+        #sub_joint_ = nh_.subscribe<sensor_msgs::JointState>("/j2s7s300_driver/out/joint_state", 1, &PickPlace::get_current_state, this);
         sub_pose_ = nh_.subscribe<geometry_msgs::PoseStamped>("/" + robot_type_ +"_driver/out/tool_pose", 1, &PickPlace::get_current_pose, this);
     }
 
