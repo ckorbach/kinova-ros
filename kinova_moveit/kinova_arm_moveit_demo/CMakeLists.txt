@@ -27,7 +27,7 @@ catkin_package(
     interactive_markers
     eigen_conversions
 )
-find_package(Eigen REQUIRED)
+find_package(Eigen3 REQUIRED)
 
 find_package(kinova_driver REQUIRED)
 
