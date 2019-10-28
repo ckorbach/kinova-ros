@@ -227,7 +227,7 @@ void JointTrajectoryController::pub_joint_vel(const ros::TimerEvent&)
         if ( (traj_command_points_[traj_command_points_index_].time_from_start - time_from_timer_start).toSec() < 0.01)
         {
 
-            float f = 0.2;
+            float f = 0.1;
             float adjust_factor = 0.01/(traj_command_points_[traj_command_points_index_].time_from_start - time_from_timer_start).toSec(); //adjust_factor<1
             joint_velocity_msg.joint1 *= (adjust_factor * f);
             joint_velocity_msg.joint2 *= (adjust_factor * f);
