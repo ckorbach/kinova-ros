@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(kinova_driver)
 
+set(CMAKE_CXX_STANDARD 14)
+
 find_package(catkin REQUIRED dynamic_reconfigure COMPONENTS
   actionlib
   actionlib_msgs
@@ -57,6 +59,9 @@ add_library(kinova_driver
   src/kinova_fingers_action.cpp
   src/kinova_ros_types.cpp
   src/kinova_joint_trajectory_controller.cpp
+  src/util/pid_controller.cpp
+  src/util/kinova_angles_state.cpp
+  src/util/time_helpers.cpp
   include/kinova_driver/kinova_joint_trajectory_controller.h
   include/kinova_driver/kinova_joint_angles_action.h
   include/kinova_driver/kinova_api.h
@@ -68,6 +73,7 @@ add_library(kinova_driver
   include/kinova/Kinova.API.USBCommLayerUbuntu.h
   include/kinova/Kinova.API.USBCommandLayerUbuntu.h
   include/kinova/KinovaTypes.h
+  include/util/pid_controller.h
 )
 
 add_executable(kinova_arm_driver

@@ -51,19 +51,19 @@
 namespace kinova
 {
 
-KinovaAnglesActionServer::KinovaAnglesActionServer(KinovaComm &arm_comm, const ros::NodeHandle &nh)
-    : arm_comm_(arm_comm),
-      node_handle_(nh, "joints_action"),
-      action_server_(node_handle_, "joint_angles",
-                     boost::bind(&KinovaAnglesActionServer::actionCallback, this, _1), false)
+KinovaAnglesActionServer::KinovaAnglesActionServer(KinovaComm& arm_comm, const ros::NodeHandle& nh)
+    : arm_comm_(arm_comm)
+    , node_handle_(nh, "joints_action")
+    , action_server_(node_handle_, "joint_angles",
+          boost::bind(&KinovaAnglesActionServer::actionCallback, this, _1), false)
 {
     double tolerance;
     node_handle_.param<double>("stall_interval_seconds", stall_interval_seconds_, 0.5);
     node_handle_.param<double>("stall_threshold", stall_threshold_, 1.0);
     node_handle_.param<double>("rate_hz", rate_hz_, 10.0);
     node_handle_.param<double>("tolerance", tolerance, 2.0);
-    nh.param<double>("jointSpeedLimitParameter1",jointSpeedLimitJoints123,20);
-    nh.param<double>("jointSpeedLimitParameter2",jointSpeedLimitJoints456,20);
+    nh.param<double>("jointSpeedLimitParameter1", jointSpeedLimitJoints123, 20);
+    nh.param<double>("jointSpeedLimitParameter2", jointSpeedLimitJoints456, 20);
     tolerance_ = (float)tolerance;
 
     action_server_.start();
@@ -75,7 +75,7 @@ KinovaAnglesActionServer::~KinovaAnglesActionServer()
 }
 
 
-void KinovaAnglesActionServer::actionCallback(const kinova_msgs::ArmJointAnglesGoalConstPtr &goal)
+void KinovaAnglesActionServer::actionCallback(const kinova_msgs::ArmJointAnglesGoalConstPtr& goal)
 {
     kinova_msgs::ArmJointAnglesFeedback feedback;
     kinova_msgs::ArmJointAnglesResult result;
@@ -99,7 +99,7 @@ void KinovaAnglesActionServer::actionCallback(const kinova_msgs::ArmJointAnglesG
         last_nonstall_angles_ = current_joint_angles;
 
         KinovaAngles target(goal->angles);
-        arm_comm_.setJointAngles(target,jointSpeedLimitJoints123,jointSpeedLimitJoints456);
+        arm_comm_.setJointAngles(target, jointSpeedLimitJoints123, jointSpeedLimitJoints456);
 
         // Loop until the action completed, is preempted, or fails in some way.
         // timeout is left to the caller since the timeout may greatly depend on
@@ -107,7 +107,7 @@ void KinovaAnglesActionServer::actionCallback(const kinova_msgs::ArmJointAnglesG
         while (true)
         {
             ros::spinOnce();
-	    if (arm_comm_.isStopped())
+            if (arm_comm_.isStopped())
             {
                 result.angles = current_joint_angles.constructAnglesMsg();
                 action_server_.setAborted(result);
@@ -127,7 +127,7 @@ void KinovaAnglesActionServer::actionCallback(const kinova_msgs::ArmJointAnglesG
             arm_comm_.getJointAngles(current_joint_angles);
             current_time = ros::Time::now();
             feedback.angles = current_joint_angles.constructAnglesMsg();
-//            action_server_.publishFeedback(feedback);
+            //            action_server_.publishFeedback(feedback);
 
             if (target.isCloseToOther(current_joint_angles, tolerance_))
             {
@@ -149,23 +149,24 @@ void KinovaAnglesActionServer::actionCallback(const kinova_msgs::ArmJointAnglesG
                 result.angles = current_joint_angles.constructAnglesMsg();
                 if (!arm_comm_.isStopped())
                 {
-                	arm_comm_.stopAPI();
-                	arm_comm_.startAPI();
-		}
-                //why preemted, if the robot is stalled, trajectory/action failed!
+                    arm_comm_.stopAPI();
+                    arm_comm_.startAPI();
+                }
+                // why preemted, if the robot is stalled, trajectory/action failed!
                 /*
                 action_server_.setPreempted(result);
                 ROS_WARN_STREAM(__PRETTY_FUNCTION__ << ": LINE " << __LINE__ << ", setPreempted ");
                 */
                 action_server_.setAborted(result);
-                ROS_WARN_STREAM(__PRETTY_FUNCTION__ << ": LINE " << __LINE__ << ", Trajectory command failed ");
+                ROS_WARN_STREAM(
+                    __PRETTY_FUNCTION__ << ": LINE " << __LINE__ << ", Trajectory command failed ");
                 return;
             }
 
             ros::Rate(rate_hz_).sleep();
         }
     }
-    catch(const std::exception& e)
+    catch (const std::exception& e)
     {
         result.angles = current_joint_angles.constructAnglesMsg();
         ROS_ERROR_STREAM(e.what());
@@ -174,4 +175,4 @@ void KinovaAnglesActionServer::actionCallback(const kinova_msgs::ArmJointAnglesG
     }
 }
 
-}  // namespace kinova
+} // namespace kinova

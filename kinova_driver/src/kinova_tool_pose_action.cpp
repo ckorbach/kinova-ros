@@ -53,13 +53,14 @@
 namespace kinova
 {
 
-KinovaPoseActionServer::KinovaPoseActionServer(KinovaComm &arm_comm, const ros::NodeHandle &nh, const std::string &kinova_robotType, const std::string &kinova_robotName)
-    : arm_comm_(arm_comm),
-      node_handle_(nh, "pose_action"),
-      kinova_robotType_(kinova_robotType),
-      kinova_robotName_(kinova_robotName),
-      action_server_(node_handle_, "tool_pose",
-                     boost::bind(&KinovaPoseActionServer::actionCallback, this, _1), false)
+KinovaPoseActionServer::KinovaPoseActionServer(KinovaComm& arm_comm, const ros::NodeHandle& nh,
+    const std::string& kinova_robotType, const std::string& kinova_robotName)
+    : arm_comm_(arm_comm)
+    , node_handle_(nh, "pose_action")
+    , kinova_robotType_(kinova_robotType)
+    , kinova_robotName_(kinova_robotName)
+    , action_server_(node_handle_, "tool_pose",
+          boost::bind(&KinovaPoseActionServer::actionCallback, this, _1), false)
 {
     double position_tolerance;
     double EulerAngle_tolerance;
@@ -67,9 +68,10 @@ KinovaPoseActionServer::KinovaPoseActionServer(KinovaComm &arm_comm, const ros::
     node_handle_.param<double>("stall_threshold", stall_threshold_, 0.005);
     node_handle_.param<double>("rate_hz", rate_hz_, 10.0);
     node_handle_.param<double>("position_tolerance", position_tolerance, 0.01);
-    node_handle_.param<double>("EulerAngle_tolerance", EulerAngle_tolerance, 2.0*M_PI/180);
+    node_handle_.param<double>("EulerAngle_tolerance", EulerAngle_tolerance, 2.0 * M_PI / 180);
 
-    //    tf_prefix_ = kinova_robotType_ + "_" + boost::lexical_cast<string>(same_type_index); // in case of multiple same_type robots
+    //    tf_prefix_ = kinova_robotType_ + "_" + boost::lexical_cast<string>(same_type_index); // in
+    //    case of multiple same_type robots
     tf_prefix_ = kinova_robotName_ + "_";
 
     position_tolerance_ = static_cast<float>(position_tolerance);
@@ -80,10 +82,10 @@ KinovaPoseActionServer::KinovaPoseActionServer(KinovaComm &arm_comm, const ros::
 
     action_server_.start();
 
-//    if(ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Debug))
-//    {
-//        ros::console::notifyLoggerLevelsChanged();
-//    }
+    //    if(ros::console::set_logger_level(ROSCONSOLE_DEFAULT_NAME, ros::console::levels::Debug))
+    //    {
+    //        ros::console::notifyLoggerLevelsChanged();
+    //    }
 }
 
 
@@ -92,7 +94,7 @@ KinovaPoseActionServer::~KinovaPoseActionServer()
 }
 
 
-void KinovaPoseActionServer::actionCallback(const kinova_msgs::ArmPoseGoalConstPtr &goal)
+void KinovaPoseActionServer::actionCallback(const kinova_msgs::ArmPoseGoalConstPtr& goal)
 {
     kinova_msgs::ArmPoseFeedback feedback;
     kinova_msgs::ArmPoseResult result;
@@ -108,11 +110,11 @@ void KinovaPoseActionServer::actionCallback(const kinova_msgs::ArmPoseGoalConstP
     {
         // Put the goal pose into the frame used by the arm
         if (ros::ok()
-                && !listener.canTransform(link_base_frame_, goal->pose.header.frame_id,
-                                          goal->pose.header.stamp))
+            && !listener.canTransform(
+                   link_base_frame_, goal->pose.header.frame_id, goal->pose.header.stamp))
         {
             ROS_ERROR("Could not get transfrom from %s to %s, aborting cartesian movement",
-                      link_base_frame_.c_str(), goal->pose.header.frame_id.c_str());
+                link_base_frame_.c_str(), goal->pose.header.frame_id.c_str());
             action_server_.setAborted(result);
             ROS_WARN_STREAM(__PRETTY_FUNCTION__ << ": LINE " << __LINE__ << ", setAborted ");
             return;
@@ -133,15 +135,22 @@ void KinovaPoseActionServer::actionCallback(const kinova_msgs::ArmPoseGoalConstP
         last_nonstall_pose_ = current_pose;
 
         KinovaPose target(local_pose.pose);
-        ROS_DEBUG_STREAM(std::endl << std::endl << "***-----------------------***" << std::endl << __PRETTY_FUNCTION__ << ":  target X " << target.X << "; Y "<< target.Y << "; Z "<< target.Z << "; ThetaX " << target.ThetaX << "; ThetaY " << target.ThetaY  << "; ThetaZ " << target.ThetaZ << std::endl << "***-----------------------***" << std::endl );
+        ROS_DEBUG_STREAM(std::endl
+            << std::endl
+            << "***-----------------------***" << std::endl
+            << __PRETTY_FUNCTION__ << ":  target X " << target.X << "; Y " << target.Y << "; Z "
+            << target.Z << "; ThetaX " << target.ThetaX << "; ThetaY " << target.ThetaY
+            << "; ThetaZ " << target.ThetaZ << std::endl
+            << "***-----------------------***" << std::endl);
         arm_comm_.setCartesianPosition(target);
         while (ros::ok())
         {
-            // without setCartesianPosition() in while loop, robot stopped in the half way, and the goal won't be reached.
+            // without setCartesianPosition() in while loop, robot stopped in the half way, and the
+            // goal won't be reached.
             arm_comm_.setCartesianPosition(target);
             ros::spinOnce();
 
-	    if (arm_comm_.isStopped())
+            if (arm_comm_.isStopped())
             {
                 ROS_DEBUG_STREAM("" << __PRETTY_FUNCTION__ << ": arm_comm_.isStopped()");
                 result.pose = feedback.pose;
@@ -164,9 +173,12 @@ void KinovaPoseActionServer::actionCallback(const kinova_msgs::ArmPoseGoalConstP
             current_time = ros::Time::now();
             local_pose.pose = current_pose.constructPoseMsg();
             listener.transformPose(feedback.pose.header.frame_id, local_pose, feedback.pose);
-//            action_server_.publishFeedback(feedback);
+            //            action_server_.publishFeedback(feedback);
 
-            ROS_DEBUG_STREAM("" << __PRETTY_FUNCTION__ << ": current_pose X " << current_pose.X << "; Y "<< current_pose.Y << "; Z "<< current_pose.Z << "; ThetaX " << current_pose.ThetaX << "; ThetaY " << current_pose.ThetaY  << "; ThetaZ " << current_pose.ThetaZ );
+            ROS_DEBUG_STREAM("" << __PRETTY_FUNCTION__ << ": current_pose X " << current_pose.X
+                                << "; Y " << current_pose.Y << "; Z " << current_pose.Z
+                                << "; ThetaX " << current_pose.ThetaX << "; ThetaY "
+                                << current_pose.ThetaY << "; ThetaZ " << current_pose.ThetaZ);
 
             if (target.isCloseToOther(current_pose, position_tolerance_, EulerAngle_tolerance_))
             {
@@ -176,7 +188,8 @@ void KinovaPoseActionServer::actionCallback(const kinova_msgs::ArmPoseGoalConstP
                 ROS_WARN_STREAM(__PRETTY_FUNCTION__ << ": LINE " << __LINE__ << ", setSucceeded ");
                 return;
             }
-            else if (!last_nonstall_pose_.isCloseToOther(current_pose, stall_threshold_, stall_threshold_))
+            else if (!last_nonstall_pose_.isCloseToOther(
+                         current_pose, stall_threshold_, stall_threshold_))
             {
                 // Check if we are outside of a potential stall condition
                 last_nonstall_time_ = current_time;
@@ -189,22 +202,23 @@ void KinovaPoseActionServer::actionCallback(const kinova_msgs::ArmPoseGoalConstP
                 result.pose = feedback.pose;
                 if (!arm_comm_.isStopped())
                 {
-                	arm_comm_.stopAPI();
-                	arm_comm_.startAPI();
-		}
-                //why preemted, if the robot is stalled, trajectory/action failed!
+                    arm_comm_.stopAPI();
+                    arm_comm_.startAPI();
+                }
+                // why preemted, if the robot is stalled, trajectory/action failed!
                 /*
                 action_server_.setPreempted(result);
                 ROS_WARN_STREAM(__PRETTY_FUNCTION__ << ": LINE " << __LINE__ << ", setPreempted ");
                 */
                 action_server_.setAborted(result);
-                ROS_WARN_STREAM(__PRETTY_FUNCTION__ << ": LINE " << __LINE__ << ", Trajectory command failed ");
+                ROS_WARN_STREAM(
+                    __PRETTY_FUNCTION__ << ": LINE " << __LINE__ << ", Trajectory command failed ");
                 return;
             }
             ros::Rate(rate_hz_).sleep();
         }
     }
-    catch(const std::exception& e)
+    catch (const std::exception& e)
     {
         result.pose = feedback.pose;
         ROS_ERROR_STREAM(e.what());
@@ -213,4 +227,4 @@ void KinovaPoseActionServer::actionCallback(const kinova_msgs::ArmPoseGoalConstP
     }
 }
 
-}  // namespace kinova
+} // namespace kinova
