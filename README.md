@@ -39,6 +39,15 @@
 	* for the `j2s7s300`: 'KINOVA SDK GEN 2' from the [Kinova Software Resources](https://www.kinovarobotics.com/en/knowledge-hub/all-kinova-products)
 	
 ## Basic Usage
+MoveIt! with virtual robot\
+`roslaunch j2s7s300_moveit_config j2s7s300_virtual_robot_demo.launch`
+
+MoveIt! with actual robot connected (load driver)\
+`roslaunch kinova_bringup kinova_robot.launch`
+
+RViz with MoveIt! Plugin\
+`roslaunch j2s7s300_moveit_config j2s7s300_demo.launch`
+
 
 ## Important Links
 * [Moveit](http://docs.ros.org/melodic/api/moveit_tutorials/html/doc/getting_started/getting_started.html)
