@@ -1,4 +1,8 @@
 # Table of Contents 
+- [Manual](#Manual)
+  - [Installation](#installation)
+  - [Basic Usage](#basicusage)
+  - [Important Links](#importantlinks)
 - [Important](#important) 
 - [Kinova-ROS](#kinova-ros)
   - [Supported versions](#supported-versions)
@@ -24,9 +28,24 @@
   - [Notes and Limitations](#notes-and-limitations)
   - [Report a Bug](#report-a-bug)
 
+# Manual
+## Installation
+1. Requirements: `sudo apt-get install ros-melodic-moveit* ros-melodic-trac-ik ros-melodic-ros-controllers*`
+1. Clone and build the project in a catkin workspace
+1. Navigate to kinova-ros & execute: `sudo cp kinova_driver/udev/10-kinova-arm.rules /etc/udev/rules.d/`
+1. The robot arm default is set to `j2s7s300`, the Kinova Gen2 7-DoF Spherical Arm
+	* Change all model names and the `is7dof` parameters, if you use another arm
+1. Download and install the Kinova API & SDK
+	* for the `j2s7s300`: 'KINOVA SDK GEN 2' from the [Kinova Software Resources](https://www.kinovarobotics.com/en/knowledge-hub/all-kinova-products)
+	
+## Basic Usage
+
+## Important Links
+* [Moveit](http://docs.ros.org/melodic/api/moveit_tutorials/html/doc/getting_started/getting_started.html)
+* [Kinova Moveit](https://github.com/Kinovarobotics/kinova-ros/wiki/MoveIt)
+* [Kinova Gazebo](https://github.com/Kinovarobotics/kinova-ros/wiki/Gazebo)
 
 # Important
-
 This repository contains source code and configuration files to support the Jaco, Jaco2 and Mico arms in ROS.
 
 This repository doesn't support the Gen3 arm in ROS. Have a look at the [ros_kortex repository](https://github.com/Kinovarobotics/ros_kortex) for Gen3 ROS support!
