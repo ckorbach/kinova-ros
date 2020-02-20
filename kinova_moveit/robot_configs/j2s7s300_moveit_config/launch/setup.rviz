@@ -1,12 +1,14 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 84
+    Help Height: 0
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Camera1
+        - /Image1
         - /Image2
       Splitter Ratio: 0.42174628376960754
-    Tree Height: 216
+    Tree Height: 397
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -41,7 +43,7 @@ Visualization Manager:
       Value: true
     - Acceleration_Scaling_Factor: 1
       Class: moveit_rviz_plugin/MotionPlanning
-      Enabled: true
+      Enabled: false
       Move Group Namespace: ""
       MoveIt_Allow_Approximate_IK: false
       MoveIt_Allow_External_Program: false
@@ -73,88 +75,6 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          j2s7s300_end_effector:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          j2s7s300_link_1:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_2:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_3:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_4:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_5:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_6:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_7:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_base:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_1:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_2:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_3:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_tip_1:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_tip_2:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_tip_3:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          root:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          world:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
         Loop Animation: true
         Robot Alpha: 0.5
         Robot Color: 150; 50; 150
@@ -200,92 +120,10 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          j2s7s300_end_effector:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          j2s7s300_link_1:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_2:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_3:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_4:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_5:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_6:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_7:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_base:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_1:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_2:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_3:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_tip_1:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_tip_2:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          j2s7s300_link_finger_tip_3:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          root:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          world:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
         Robot Alpha: 0.5
         Show Robot Collision: false
         Show Robot Visual: true
-      Value: true
+      Value: false
       Velocity_Scaling_Factor: 1
     - Alpha: 1
       Axes Length: 1
@@ -307,8 +145,6 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        base_link:
-          Value: false
         j2s7s300_end_effector:
           Value: false
         j2s7s300_link_1:
@@ -327,6 +163,8 @@ Visualization Manager:
           Value: false
         j2s7s300_link_base:
           Value: false
+        j2s7s300_link_base_corrected:
+          Value: true
         j2s7s300_link_finger_1:
           Value: false
         j2s7s300_link_finger_2:
@@ -366,14 +204,13 @@ Visualization Manager:
         world:
           map:
             odom:
-              base_link:
-                zed_camera_center:
-                  zed_left_camera_frame:
-                    zed_left_camera_optical_frame:
-                      {}
-                  zed_right_camera_frame:
-                    zed_right_camera_optical_frame:
-                      {}
+              zed_camera_center:
+                zed_left_camera_frame:
+                  zed_left_camera_optical_frame:
+                    {}
+                zed_right_camera_frame:
+                  zed_right_camera_optical_frame:
+                    {}
           root:
             j2s7s300_link_base:
               j2s7s300_link_1:
@@ -394,24 +231,27 @@ Visualization Manager:
                             j2s7s300_link_finger_3:
                               j2s7s300_link_finger_tip_3:
                                 {}
+              j2s7s300_link_base_corrected:
+                {}
       Update Interval: 0
       Value: true
     - Class: rviz/Camera
-      Enabled: false
+      Enabled: true
       Image Rendering: background and overlay
-      Image Topic: /zed/zed_node/rgb/image_rect_color
+      Image Topic: /zed/rgb/image_rect_color
       Name: Camera
       Overlay Alpha: 0.5
       Queue Size: 2
       Transport Hint: raw
       Unreliable: false
-      Value: false
+      Value: true
       Visibility:
         Grid: true
         Image: true
         MotionPlanning: true
         PointCloud2: true
         Pose: true
+        RobotModel: true
         TF: true
         Value: true
       Zoom Factor: 1
@@ -447,7 +287,7 @@ Visualization Manager:
       Value: false
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /zed/zed_node/depth/depth_registered
+      Image Topic: /image/canny_edge/original
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -459,7 +299,7 @@ Visualization Manager:
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /zed/zed_node/rgb/image_rect_color
+      Image Topic: /image/background_subtractor/processed
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -469,6 +309,104 @@ Visualization Manager:
       Transport Hint: raw
       Unreliable: false
       Value: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        j2s7s300_end_effector:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        j2s7s300_link_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_6:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_7:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_finger_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_finger_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_finger_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_finger_tip_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_finger_tip_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        j2s7s300_link_finger_tip_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        root:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+      Name: RobotModel
+      Robot Description: robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -500,17 +438,17 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.2847963571548462
+      Pitch: 0.5447961688041687
       Target Frame: root
       Value: XYOrbit (rviz)
-      Yaw: 0.66176438331604
+      Yaw: 0.9067643880844116
     Saved: ~
 Window Geometry:
   Camera:
     collapsed: false
   Displays:
     collapsed: false
-  Height: 1043
+  Height: 880
   Help:
     collapsed: false
   Hide Left Dock: false
@@ -521,9 +459,9 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd000000020000000000000261000003c2fc0200000007fb000000100044006900730070006c006100790073010000003600000164000000bc00fffffffb0000000800480065006c00700000000342000000bb0000006800fffffffb0000000a0056006900650077007300000003b0000000b00000009900fffffffb0000000c00430061006d006500720061000000011c0000015b0000001600fffffffb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000003c00fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e0067010000019f000002590000017200ffffff00000001000001ae000003c2fc0200000003fb0000000a0049006d0061006700650100000036000001e20000001600fffffffb0000000a0049006d006100670065010000021d000001db0000001600fffffffb0000000c00430061006d0065007200610100000209000001ef000000000000000000000367000003c200000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000200000000000001530000031ffc0200000008fb000000100044006900730070006c0061007900730100000036000001c5000000bc00fffffffb0000000800480065006c00700000000342000000bb0000006800fffffffb0000000a0056006900650077007300000003b0000000b00000009900fffffffb0000000c00430061006d0065007200610100000200000001550000001600fffffffb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000003c00fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e0067000000014b000002160000017200fffffffb0000000c00430061006d006500720061010000029c000000c5000000000000000000000001000002300000031ffc0200000004fb0000000a0049006d00610067006501000000360000018a0000001600fffffffb0000000a0049006d00610067006501000001c5000001900000001600fffffffb0000000a0049006d00610067006501000001af000001b20000000000000000fb0000000c00430061006d0065007200610100000209000001ef0000000000000000000003f30000031f00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1920
   X: 0
-  Y: 37
+  Y: 200

@@ -9,7 +9,7 @@
   <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="$(find xacro)/xacro --inorder '$(find kinova_description)/urdf/setup_j2s7s300_standalone.xacro'"/>
 
   <!-- Apply TF -->
-  <node pkg="tf" type="static_transform_publisher" name="kinova_world_broadcaster" args="-0.003 -0.23 0 0 0 1 1 world root 100" />
+  <node pkg="tf" type="static_transform_publisher" name="kinova_world_broadcaster" args="0.055 -0.27 -0.00 0 0 1 1 world root 100" />
 
   <!-- The semantic description that corresponds to the URDF -->
   <param name="$(arg robot_description)_semantic" textfile="$(find j2s7s300_moveit_config)/config/j2s7s300.srdf" />
